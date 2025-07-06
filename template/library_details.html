@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Library Details | Get Your Book</title>
+  <link rel="icon" href="static/home1.jpg">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: rgba(247, 220, 103, 0.4);
+    }
+
+    .topbar {
+      background-color: rgb(196, 76, 20);
+      height: 10vh;
+      display: flex;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 10;
+    }
+
+    .logo {
+      height: 8vh;
+      margin-left: 1vh;
+    }
+
+    .nav-buttons {
+      display: flex;
+      margin-left: 2vh;
+    }
+
+    .nav-buttons button {
+      background-color: rgb(196, 76, 20);
+      color: white;
+      border: none;
+      padding: 1vh 1.5vw;
+      font-size: 1vw;
+      cursor: pointer;
+    }
+
+    .nav-buttons button:hover {
+      background-color: rgb(160, 60, 10);
+    }
+
+    .user-info {
+      margin-left: auto;
+      margin-right: 2vw;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 1vw;
+      font-size: 1vw;
+    }
+
+    .circle {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-color: white;
+    }
+
+    .content {
+      margin-top: 15vh;
+      padding: 3vh 5vw;
+    }
+
+    h2, h3 {
+      color: rgb(196, 76, 20);
+    }
+
+    .review {
+      margin-bottom: 2vh;
+    }
+
+    textarea {
+      width: 100%;
+      font-size: 1vw;
+      padding: 1vh;
+      border-radius: 5px;
+    }
+
+    input[type="number"] {
+      font-size: 1vw;
+      padding: 1vh;
+      width: 5vw;
+      border-radius: 5px;
+      border: 1px solid #aaa;
+    }
+
+    button {
+      background-color: rgb(196, 76, 20);
+      color: white;
+      border: none;
+      padding: 1vh 2vw;
+      font-size: 1vw;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 1vh;
+    }
+
+    button:hover {
+      background-color: rgb(160, 60, 10);
+    }
+
+    .review-box {
+      background-color: white;
+      padding: 1vh 2vw;
+      margin-bottom: 1vh;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+
+    .msg {
+      color: green;
+      font-weight: bold;
+      margin-top: 1vh;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="topbar">
+    <img src="static/home1.jpg" class="logo" alt="Logo">
+    <div class="nav-buttons">
+      <button onclick="location.href='index.html'">Home</button>
+      <button onclick="location.href='login.html'">Login</button>
+      <button onclick="location.href='register.html'">Register</button>
+      <button onclick="location.href='searchbooks.html'">Search Books</button>
+      <button onclick="location.href='searchlib.html'">Search Libraries</button>
+      <button onclick="location.href='newlib.html'">Register Library</button>
+      <button onclick="logout()">Logout</button>
+    </div>
+    <div class="user-info" id="userInfo" style="display: none;">
+      <span id="usernameDisplay"></span>
+      <div class="circle"></div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+    <h2>City Central Library</h2>
+    <p>Located at: 123 Main Road, Chennai</p>
+    <p>Shelves: 25 | Books: 1200+ | Popular for Fiction & Literature</p>
+
+    <h3>Reviews</h3>
+    <div id="reviewList">
+      <div class="review-box">Akshaya (5/5): Very peaceful place to read!</div>
+      <div class="review-box">Rahul (4/5): Good collection, but seating is limited.</div>
+    </div>
+
+    <h3>Leave a Review</h3>
+    <form onsubmit="submitReview(event)">
+      <input type="hidden" id="libName" value="City Central Library">
+      <label>Rating (1–5):</label>
+      <input name="rating" id="ratingInput" type="number" min="1" max="5" required><br><br>
+      <label>Comments:</label><br>
+      <textarea id="commentInput" rows="4" placeholder="Write your review..."></textarea><br><br>
+      <button type="submit">Submit Review</button>
+    </form>
+    <div class="msg" id="reviewMsg"></div>
+  </div>
+
+  <script>
+    const currentUser = localStorage.getItem("username");
+
+    if (!currentUser) {
+      alert("Please login to view this page.");
+      window.location.href = "login.html";
+    } else {
+      document.getElementById("userInfo").style.display = "flex";
+      document.getElementById("usernameDisplay").innerText = currentUser;
+    }
+
+    function logout() {
+      localStorage.removeItem("username");
+      alert("Logged out!");
+      window.location.href = "index.html";
+    }
+
+    function submitReview(event) {
+      event.preventDefault();
+      const rating = document.getElementById("ratingInput").value;
+      const comment = document.getElementById("commentInput").value.trim();
+
+      if (!comment) {
+        alert("Please write a comment.");
+        return;
+      }
+
+      const newReview = document.createElement("div");
+      newReview.className = "review-box";
+      newReview.innerText = `${currentUser} (${rating}/5): ${comment}`;
+
+      document.getElementById("reviewList").appendChild(newReview);
+
+      document.getElementById("reviewMsg").innerText = "Thank you! Your review has been added.";
+      document.getElementById("ratingInput").value = '';
+      document.getElementById("commentInput").value = '';
+    }
+  </script>
+
+</body>
+</html>

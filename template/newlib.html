@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register Library | Get Your Book</title>
+  <link rel="icon" type="image/jpeg" href="static/home1.jpg">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: rgba(247, 220, 103, 0.4);
+      overflow-y: auto;
+      padding-bottom: 10vh;
+    }
+
+    .topbar {
+      background-color: rgb(196, 76, 20);
+      height: 10vh;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      height: 8vh;
+      margin-left: 1vh;
+    }
+
+    .nav-buttons {
+      display: flex;
+      margin-left: 2vh;
+    }
+
+    .nav-buttons button {
+      background-color: rgb(196, 76, 20);
+      color: white;
+      border: none;
+      padding: 1vh 1.5vw;
+      font-size: 1vw;
+      cursor: pointer;
+    }
+
+    .nav-buttons button:hover {
+      background-color: rgb(160, 60, 10);
+    }
+
+    .user-info {
+      margin-left: auto;
+      margin-right: 2vw;
+      display: flex;
+      align-items: center;
+      gap: 1vw;
+      color: white;
+      font-size: 1vw;
+    }
+
+    .circle {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-color: white;
+    }
+
+    .form-box {
+      margin-top: 13vh;
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start;
+      padding: 2vh 5vw;
+      flex-wrap: wrap;
+      gap: 4vw;
+    }
+
+    form {
+      background-color: white;
+      padding: 4vh 4vw;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      width: 35vw;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h2 {
+      text-align: center;
+      color: rgb(196, 76, 20);
+      margin-bottom: 3vh;
+      font-size: 2vw;
+    }
+
+    label {
+      font-size: 1.05vw;
+      margin: 1vh 0 0.5vh;
+      color: #333;
+    }
+
+    input, textarea {
+      padding: 1vh;
+      font-size: 1vw;
+      margin-bottom: 2vh;
+      border-radius: 5px;
+      border: 1px solid #aaa;
+    }
+
+    button[type="submit"] {
+      background-color: rgb(196, 76, 20);
+      color: white;
+      border: none;
+      padding: 1.2vh;
+      font-size: 1.1vw;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 1vh;
+    }
+
+    button[type="submit"]:hover {
+      background-color: rgb(160, 60, 10);
+    }
+
+    .hero-img {
+      height: 40vh;
+      aspect-ratio: 1.5;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    @media (max-width: 900px) {
+      form, .hero-img {
+        width: 90vw;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="topbar">
+    <img src="static/home1.jpg" alt="Logo" class="logo">
+    <div class="nav-buttons">
+      <button onclick="location.href='index.html'">Home</button>
+      <button onclick="location.href='login.html'">Login</button>
+      <button onclick="location.href='register.html'">Register</button>
+      <button onclick="location.href='searchbooks.html'">Search Books</button>
+      <button onclick="location.href='searchlib.html'">Search Libraries</button>
+      <button onclick="location.href='newlib.html'">Register Library</button>
+      <button onclick="logout()">Logout</button>
+    </div>
+
+    <div class="user-info" id="userInfo" style="display: none;">
+      <span id="usernameDisplay"></span>
+      <div class="circle"></div>
+    </div>
+  </div>
+
+  <!-- Form Content -->
+  <div class="form-box">
+    <form onsubmit="registerLibrary(event)">
+      <h2>Register Your Library</h2>
+
+      <label for="libName">Library Name</label>
+      <input type="text" id="libName" required>
+
+      <label for="password">Admin Password</label>
+      <input type="password" id="password" required pattern="[^ ]+">
+
+      <label for="location">Location</label>
+      <input type="text" id="location" required>
+
+      <label for="address">Address</label>
+      <textarea id="address" rows="3" required></textarea>
+
+      <label for="phone">Phone Number</label>
+      <input type="text" id="phone" required pattern="[0-9]{10}" title="Enter 10 digit number">
+
+      <label for="shelves">Total Shelves</label>
+      <input type="number" id="shelves" required>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <img src="static/home1.jpg" class="hero-img" alt="Library Image">
+  </div>
+
+  <script>
+    const currentUser = localStorage.getItem("username");
+    if (currentUser) {
+      document.getElementById("userInfo").style.display = "flex";
+      document.getElementById("usernameDisplay").innerText = currentUser;
+    }
+
+    function logout() {
+      localStorage.removeItem("username");
+      alert("Logged out!");
+      window.location.href = "index.html";
+    }
+
+    function registerLibrary(event) {
+      event.preventDefault();
+      alert("Library registered successfully!");
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>

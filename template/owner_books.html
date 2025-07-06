@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Owner - Add Books | Get Your Book</title>
+  <link rel="icon" type="image/jpeg" href="static/home1.jpg">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: rgba(247, 220, 103, 0.4);
+      overflow-x: hidden;
+    }
+
+    .topbar {
+      background-color: rgb(196, 76, 20);
+      height: 10vh;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      height: 8vh;
+      margin-left: 1vh;
+    }
+
+    .nav-buttons {
+      display: flex;
+      margin-left: 2vh;
+    }
+
+    .nav-buttons button {
+      background-color: rgb(196, 76, 20);
+      color: white;
+      border: none;
+      padding: 1vh 1.5vw;
+      font-size: 1vw;
+      cursor: pointer;
+    }
+
+    .nav-buttons button:hover {
+      background-color: rgb(160, 60, 10);
+    }
+
+    .user-info {
+      margin-left: auto;
+      margin-right: 2vw;
+      display: flex;
+      align-items: center;
+      gap: 1vw;
+      color: white;
+      font-size: 1vw;
+    }
+
+    .circle {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-color: white;
+    }
+
+    .content {
+      margin-top: 15vh;
+      padding: 2vh 5vw;
+    }
+
+    h2 {
+      color: rgb(196, 76, 20);
+      font-size: 2vw;
+      margin-bottom: 3vh;
+    }
+
+    form {
+      margin-bottom: 4vh;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2vw;
+      align-items: center;
+    }
+
+    form input {
+      font-size: 1vw;
+      padding: 1vh;
+      width: 15vw;
+      border-radius: 5px;
+      border: 1px solid #aaa;
+    }
+
+    form button {
+      background-color: rgb(196, 76, 20);
+      color: white;
+      border: none;
+      padding: 1vh 2vw;
+      font-size: 1vw;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    form button:hover {
+      background-color: rgb(160, 60, 10);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    th, td {
+      padding: 1.2vh;
+      border: 1px solid #ccc;
+      text-align: center;
+      font-size: 1vw;
+    }
+
+    th {
+      background-color: #f1f1f1;
+    }
+
+    td button {
+      background-color: #ccc;
+      color: black;
+      border: none;
+      padding: 0.5vh 1vw;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    td button:hover {
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="topbar">
+    <img src="static/home1.jpg" alt="Logo" class="logo">
+    <div class="nav-buttons">
+      <button onclick="location.href='index.html'">Home</button>
+      <button onclick="location.href='login.html'">Login</button>
+      <button onclick="location.href='register.html'">Register</button>
+      <button onclick="location.href='searchbooks.html'">Search Books</button>
+      <button onclick="location.href='searchlib.html'">Search Libraries</button>
+      <button onclick="location.href='newlib.html'">Register Library</button>
+      <button onclick="logout()">Logout</button>
+    </div>
+    <div class="user-info" id="userInfo" style="display: none;">
+      <span id="usernameDisplay"></span>
+      <div class="circle"></div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+    <h2>Owner - Add New Book</h2>
+
+    <form onsubmit="addBook(event)">
+      <input type="text" id="bookId" placeholder="Book ID" required>
+      <input type="text" id="bookName" placeholder="Book Name" required>
+      <input type="number" id="bookCost" placeholder="Cost (₹)" required>
+      <button type="submit">Add Book</button>
+    </form>
+
+    <table id="bookTable">
+      <tr>
+        <th>Book ID</th>
+        <th>Name</th>
+        <th>Cost</th>
+        <th>Action</th>
+      </tr>
+      <tr>
+        <td>101</td>
+        <td>The Alchemist</td>
+        <td>₹200</td>
+        <td><button onclick="deleteBook('101')">Delete</button></td>
+      </tr>
+      <tr>
+        <td>102</td>
+        <td>Harry Potter</td>
+        <td>₹350</td>
+        <td><button onclick="deleteBook('102')">Delete</button></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Script -->
+  <script>
+    const currentUser = localStorage.getItem("username");
+
+    // Redirect if not logged in
+    if (!currentUser) {
+      alert("Please log in to access this page.");
+      window.location.href = "login.html";
+    } else {
+      document.getElementById("userInfo").style.display = "flex";
+      document.getElementById("usernameDisplay").innerText = currentUser;
+    }
+
+    function logout() {
+      localStorage.removeItem("username");
+      alert("Logged out!");
+      window.location.href = "index.html";
+    }
+
+    function addBook(event) {
+      event.preventDefault();
+
+      const id = document.getElementById("bookId").value;
+      const name = document.getElementById("bookName").value;
+      const cost = document.getElementById("bookCost").value;
+
+      const table = document.getElementById("bookTable");
+      const row = table.insertRow(-1);
+
+      row.innerHTML = `
+        <td>${id}</td>
+        <td>${name}</td>
+        <td>₹${cost}</td>
+        <td><button onclick="deleteBook('${id}')">Delete</button></td>
+      `;
+
+      alert("Book added successfully!");
+
+      document.getElementById("bookId").value = '';
+      document.getElementById("bookName").value = '';
+      document.getElementById("bookCost").value = '';
+    }
+
+    function deleteBook(bookId) {
+      alert(`Book ${bookId} deleted!`);
+      window.location.href = "index.html";
+    }
+  </script>
+
+</body>
+</html>

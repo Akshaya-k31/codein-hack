@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register | Get Your Book</title>
+  <link rel="icon" type="image/jpeg" href="static/home1.jpg">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: rgba(247, 220, 103, 0.4);
+      overflow: hidden;
+    }
+
+    .topbar {
+      background-color: rgb(196, 76, 20);
+      height: 10vh;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      height: 8vh;
+      margin-left: 1vh;
+    }
+
+    .nav-buttons {
+      display: flex;
+      margin-left: 2vh;
+    }
+
+    .nav-buttons button {
+      background-color: rgb(196, 76, 20);
+      color: white;
+      border: none;
+      padding: 1vh 1.5vw;
+      font-size: 1vw;
+      cursor: pointer;
+    }
+
+    .nav-buttons button:hover {
+      background-color: rgb(160, 60, 10);
+    }
+
+    .user-info {
+      margin-left: auto;
+      margin-right: 2vw;
+      display: flex;
+      align-items: center;
+      gap: 1vw;
+      color: white;
+      font-size: 1vw;
+    }
+
+    .circle {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-color: white;
+    }
+
+    .form-box {
+      margin-top: 15vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    form {
+      background-color: white;
+      padding: 5vh 5vw;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      width: 35vw;
+      min-height: 48vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    h2 {
+      text-align: center;
+      color: rgb(196, 76, 20);
+      margin-bottom: 4vh;
+      font-size: 2vw;
+    }
+
+    label {
+      font-size: 1.1vw;
+      margin-bottom: 1vh;
+      color: #333;
+    }
+
+    input {
+      font-size: 1vw;
+      padding: 1vh;
+      margin-bottom: 3vh;
+      border: 1px solid #aaa;
+      border-radius: 5px;
+    }
+
+    button[type="submit"] {
+      background-color: rgb(196, 76, 20);
+      color: white;
+      border: none;
+      padding: 1.2vh;
+      font-size: 1.1vw;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 1vh;
+    }
+
+    button[type="submit"]:hover {
+      background-color: rgb(160, 60, 10);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="topbar">
+    <img src="static/home1.jpg" alt="Logo" class="logo">
+    <div class="nav-buttons">
+      <button onclick="location.href='index.html'">Home</button>
+      <button onclick="location.href='login.html'">Login</button>
+      <button onclick="location.href='register.html'">Register</button>
+      <button onclick="location.href='searchbooks.html'">Search Books</button>
+      <button onclick="location.href='searchlib.html'">Search Libraries</button>
+      <button onclick="location.href='newlib.html'">Register Library</button>
+      <button onclick="logout()">Logout</button>
+    </div>
+
+    <div class="user-info" id="userInfo" style="display: none;">
+      <span id="usernameDisplay"></span>
+      <div class="circle"></div>
+    </div>
+  </div>
+
+  <!-- Register Form -->
+  <div class="form-box">
+    <form onsubmit="handleRegister(event)">
+      <h2>Create Account</h2>
+
+      <label for="username">Username</label>
+      <input type="text" id="username" required placeholder="Enter a username">
+
+      <label for="password">Password</label>
+      <input type="password" id="password" required placeholder="Enter your password">
+
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <!-- Script -->
+  <script>
+    const currentUser = localStorage.getItem("username");
+
+    if (currentUser) {
+      // Show username and profile
+      document.getElementById("userInfo").style.display = "flex";
+      document.getElementById("usernameDisplay").innerText = currentUser;
+
+      // Prevent registration if already logged in
+      alert("You are already logged in as " + currentUser + ". Please logout to register a new account.");
+      window.location.href = "index.html";
+    }
+
+    function handleRegister(event) {
+      event.preventDefault();
+      const username = document.getElementById("username").value;
+      localStorage.setItem("username", username);
+      alert("Registered successfully!");
+      window.location.href = "index.html";
+    }
+
+    function logout() {
+      localStorage.removeItem("username");
+      alert("Logged out!");
+      window.location.href = "index.html";
+    }
+  </script>
+
+</body>
+</html>

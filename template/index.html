@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Get Your Book | Home</title>
+  <link rel="icon" type="image/jpeg" href="static/home1.jpg">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: rgba(247, 220, 103, 0.4);
+      overflow: hidden;
+    }
+
+    .topbar {
+      background-color: rgb(196, 76, 20);
+      height: 10vh;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      height: 8vh;
+      margin-left: 1vh;
+    }
+
+    .nav-buttons {
+      display: flex;
+      margin-left: 2vh;
+    }
+
+    .nav-buttons button {
+      background-color: rgb(196, 76, 20);
+      color: white;
+      border: none;
+      padding: 1vh 1.5vw;
+      font-size: 1vw;
+      cursor: pointer;
+    }
+
+    .nav-buttons button:hover {
+      background-color: rgb(160, 60, 10);
+    }
+
+    .user-info {
+      margin-left: auto;
+      margin-right: 2vw;
+      display: flex;
+      align-items: center;
+      gap: 1vw;
+      color: white;
+      font-size: 1vw;
+    }
+
+    .circle {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-color: white;
+    }
+
+    .main {
+      margin-top: 11vh;
+      height: 76vh;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 2vh 5vw;
+    }
+
+    .text-box {
+      width: 50%;
+    }
+
+    .text-box h1 {
+      font-size: 3vw;
+      color: rgb(196, 76, 20);
+      margin-bottom: 1vh;
+    }
+
+    .text-box p {
+      font-size: 1.2vw;
+      color: #222;
+      margin-bottom: 1.5vh;
+    }
+
+    .highlight {
+      font-size: 1.1vw;
+      font-weight: bold;
+      color: #444;
+      margin-bottom: 1vh;
+    }
+
+    .contact-info {
+      font-size: 1.05vw;
+      color: #000;
+      margin-top: 1.5vh;
+    }
+
+    .hero-img {
+      height: 40vh;
+      aspect-ratio: 1.5;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 1vh;
+      font-size: 0.95vw;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    a {
+      color: white;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="topbar">
+    <img src="static/home1.jpg" alt="Logo" class="logo">
+    <div class="nav-buttons">
+      <button onclick="location.href='index.html'">Home</button>
+      <button onclick="location.href='login.html'">Login</button>
+      <button onclick="location.href='register.html'">Register</button>
+      <button onclick="location.href='searchbooks.html'">Search Books</button>
+      <button onclick="location.href='searchlib.html'">Search Libraries</button>
+      <button onclick="location.href='newlib.html'">Register Library</button>
+      <button onclick="logout()">Logout</button>
+    </div>
+
+    <div class="user-info" id="userInfo" style="display: none;">
+      <span id="usernameDisplay"></span>
+      <div class="circle"></div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <div class="text-box">
+      <h1>Welcome to Get Your Book</h1>
+      <p>Explore and reserve books from libraries near you. Whether you’re a student, a book lover, or a librarian—our platform makes it easy to manage and access library books all in one place.</p>
+      
+      <div class="highlight">📚 Unlock Knowledge in One Click!</div>
+      <div class="highlight">🚀 Simplify your search. Amplify your learning.</div>
+
+      <div class="contact-info">
+        📞 +91 98765 43210 &nbsp; | &nbsp; ✉️ support@getyourbook.in
+      </div>
+    </div>
+
+    <img src="static/home1.jpg" alt="Library" class="hero-img">
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    &copy; 2025 Get Your Book. All rights reserved.
+  </div>
+
+  <!-- JS to handle username and logout -->
+  <script>
+    const username = localStorage.getItem("username");
+    if (username) {
+      document.getElementById("userInfo").style.display = "flex";
+      document.getElementById("usernameDisplay").innerText = username;
+    }
+
+    function logout() {
+      localStorage.removeItem("username");
+      alert("Logged out!");
+      window.location.href = "index.html"; // 🔁 redirect to home
+    }
+  </script>
+
+</body>
+</html>
