@@ -13,14 +13,14 @@ FEATURES:
 - Submit reviews
 
 TEMPLATES:
-index.html - Home page
-login.html - User login
-register.html - User registration
-searchbooks.html - Search books
-searchlib.html - Search libraries
-newlib.html - Register a library
-owner_books.html - Add/delete books for library owners
-book_details.html - Individual book page with reviews
+index.html - Home page,
+login.html - User login,
+register.html - User registration,
+searchbooks.html - Search books,
+searchlib.html - Search libraries,
+newlib.html - Register a library,
+owner_books.html - Add/delete books for library owners,
+book_details.html - Individual book page with reviews,
 library_details.html - Library detail view
 
 HOW TO USE:
