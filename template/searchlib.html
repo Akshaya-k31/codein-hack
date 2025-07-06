@@ -208,22 +208,18 @@
       window.location.href = "index.html";
     }
 
-    function handleSearch(event) {
-      event.preventDefault();
-      const input = document.getElementById("libInput").value.trim().toLowerCase();
+  function handleSearch(event) {
+  event.preventDefault();
+  const input = document.getElementById("libInput").value.trim().toLowerCase();
+  const rows = document.querySelectorAll("table tr");
 
-      const libraryList = [
-        "city central library", "123 main road", "chennai",
-        "green town library", "456 park street", "coimbatore",
-        "ocean view library", "789 beach avenue", "pondicherry"
-      ];
-
-      if (libraryList.includes(input)) {
-        alert(`"${input}" is available!`);
-      } else {
-        alert(`"${input}" is not available.`);
-      }
-    }
+  rows.forEach((row, index) => {
+    //console.log('works')
+    if (index === 0) return; // skip header
+    const rowText = row.textContent.trim().toLowerCase();
+    row.style.display = rowText.includes(input) ? "" : "none";
+  });
+} 
   </script>
 
 </body>

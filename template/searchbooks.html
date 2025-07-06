@@ -225,13 +225,15 @@
     function handleSearch(event) {
       event.preventDefault();
       const bookName = document.getElementById("bookInput").value.trim().toLowerCase();
-      const availableBooks = ["the alchemist", "harry potter", "rich dad poor dad"];
 
-      if (availableBooks.includes(bookName)) {
-        alert(`"${bookName}" is Available!`);
-      } else {
-        alert(`"${bookName}" is Not Available!`);
-      }
+      const rows = document.querySelectorAll("table tr");
+
+      rows.forEach((row, index) => {
+        if (index === 0) return; // skip header row
+
+        const cellText = row.cells[1].textContent.trim().toLowerCase();
+        row.style.display = cellText.includes(bookName) ? "" : "none";
+      });
     }
 
     function logout() {

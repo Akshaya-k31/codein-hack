@@ -187,12 +187,18 @@
         <td>₹350</td>
         <td><button onclick="deleteBook('102')">Delete</button></td>
       </tr>
+      <tr>
+        <td>103</td>
+        <td>Rich Dad Poor Dad</td>
+        <td>₹180</td>
+        <td><button onclick="deleteBook('103')">Delete</button></td>
+      </tr>
     </table>
   </div>
-
   <!-- Script -->
   <script>
     const currentUser = localStorage.getItem("username");
+//console.log('works')
 
     // Redirect if not logged in
     if (!currentUser) {
@@ -232,11 +238,16 @@
       document.getElementById("bookName").value = '';
       document.getElementById("bookCost").value = '';
     }
-
     function deleteBook(bookId) {
-      alert(`Book ${bookId} deleted!`);
-      window.location.href = "index.html";
+  const rows = document.querySelectorAll("table tr");
+  rows.forEach((row, index) => {
+    if (index === 0) return; // skip header
+    if (row.cells[0].textContent === bookId) {
+      row.style.display = "none";
     }
+  });
+}
+    
   </script>
 
 </body>
